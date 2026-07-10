@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Component, useState, useTransition, type ReactNode } from "react";
 import {
   updateSectionContent,
   toggleSectionEnabled,
   reorderSection,
   regenerateSection,
-} from "@/app/admin/reports/[id]/editor/actions";
+} from "@/app/admin/(protected)/reports/[id]/editor/actions";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -114,6 +114,23 @@ function parseOrNull(text: string): Record<string, unknown> | null {
   }
 }
 
+class PreviewErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <p className="text-xs text-[#c02929]">Content doesn&apos;t match this section&apos;s expected shape yet.</p>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function SafeSectionPreview({
   sectionType,
   content,
@@ -122,9 +139,9 @@ function SafeSectionPreview({
   content: Record<string, unknown> | null;
 }) {
   if (!content) return <p className="text-xs text-[#c02929]">Invalid JSON — preview unavailable.</p>;
-  try {
-    return <SectionRenderer sectionType={sectionType} order="—" content={content} />;
-  } catch {
-    return <p className="text-xs text-[#c02929]">Content doesn&apos;t match this section&apos;s expected shape yet.</p>;
-  }
+  return (
+    <PreviewErrorBoundary>
+      <SectionRenderer sectionType={sectionType} order="—" content={content} />
+    </PreviewErrorBoundary>
+  );
 }

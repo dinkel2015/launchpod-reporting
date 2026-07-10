@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { signOut } from "./login/actions";
+import { signOut } from "../login/actions";
 import { Button } from "@/components/ui/button";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

@@ -26,7 +26,7 @@ export function SearchVisibility({ order, content }: { order: string; content: S
       </div>
 
       <div>
-        <h3 className="mb-2 text-sm font-semibold">Where You're Ranked #1</h3>
+        <h3 className="mb-2 text-sm font-semibold">Where You&apos;re Ranked #1</h3>
         <KeywordChips items={content.rankedNumberOne} />
       </div>
 

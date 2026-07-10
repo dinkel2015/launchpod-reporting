@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { runValidation, publishReport } from "@/app/admin/reports/[id]/editor/actions";
+import { runValidation, publishReport } from "@/app/admin/(protected)/reports/[id]/editor/actions";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

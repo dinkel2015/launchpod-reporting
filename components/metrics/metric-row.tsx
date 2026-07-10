@@ -1,6 +1,6 @@
 "use client";
 
-import { setVerificationStatus, setIncludedInReport, deleteMetric } from "@/app/admin/reports/[id]/metrics/actions";
+import { setVerificationStatus, setIncludedInReport, deleteMetric } from "@/app/admin/(protected)/reports/[id]/metrics/actions";
 import { Badge } from "@/components/ui/badge";
 
 type Metric = {

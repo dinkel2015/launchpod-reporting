@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { addMetric } from "@/app/admin/reports/[id]/metrics/actions";
+import { addMetric } from "@/app/admin/(protected)/reports/[id]/metrics/actions";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Select, FieldGroup } from "@/components/ui/field";
 

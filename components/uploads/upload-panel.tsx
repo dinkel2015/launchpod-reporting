@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { uploadSourceFile, removeSourceFile } from "@/app/admin/reports/[id]/uploads/actions";
+import { uploadSourceFile, removeSourceFile } from "@/app/admin/(protected)/reports/[id]/uploads/actions";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

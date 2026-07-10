@@ -1,6 +1,6 @@
 "use client";
 
-import { addRecommendation, deleteRecommendation, toggleRecommendationIncluded } from "@/app/admin/reports/[id]/editor/actions";
+import { addRecommendation, deleteRecommendation, toggleRecommendationIncluded } from "@/app/admin/(protected)/reports/[id]/editor/actions";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

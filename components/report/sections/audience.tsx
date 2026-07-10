@@ -16,13 +16,13 @@ export function Audience({ order, content }: { order: string; content: AudienceC
 
       <div className="grid gap-6 md:grid-cols-2">
         <div>
-          <h3 className="mb-2 text-sm font-semibold">Who's Listening — Gender (Spotify, All-Time)</h3>
+          <h3 className="mb-2 text-sm font-semibold">Who&apos;s Listening — Gender (Spotify, All-Time)</h3>
           {content.gender.map((row) => (
             <BarRow key={row.label} label={row.label} value={row.percent} maxValue={100} displayValue={`${row.percent}%`} />
           ))}
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-semibold">Who's Listening — Age (Spotify, All-Time)</h3>
+          <h3 className="mb-2 text-sm font-semibold">Who&apos;s Listening — Age (Spotify, All-Time)</h3>
           {content.age.map((row) => (
             <BarRow key={row.label} label={row.label} value={row.percent} maxValue={100} displayValue={`${row.percent}%`} />
           ))}
