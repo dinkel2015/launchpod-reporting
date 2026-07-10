@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f3f5f7;
   --foreground: #171717;
+  --surface: #ffffff;
+  --surface-muted: #f0f1f3;
+  --border-subtle: #e6e8eb;
+
+  /* LaunchPod brand — solid pink only, never a gradient. */
+  --brand-pink: #e8197c;
+  --brand-pink-tint: #fce7f0;
+
+  --callout-info-bg: #e3f6f8;
+  --callout-info-border: #0fb5c4;
+  --callout-focus-bg: #fdf1de;
+  --callout-focus-border: #e08b1f;
+  --callout-big-picture-bg: #fbe4ee;
+  --callout-big-picture-border: var(--brand-pink);
+  --callout-positive-bg: #e2f6ea;
+  --callout-positive-border: #1f9e4c;
+
+  --delta-positive-bg: #dff5e6;
+  --delta-positive-text: #1a7a3d;
+  --delta-negative-bg: #fbe4e4;
+  --delta-negative-text: #c02929;
+  --delta-neutral-bg: #eceef0;
+  --delta-neutral-text: #55606b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-subtle: var(--border-subtle);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-pink-tint: var(--brand-pink-tint);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Hard rule: no gradient text anywhere, in-app or in exported reports. */
+.gradient-text-forbidden,
+[style*="background-clip: text"],
+[style*="-webkit-background-clip: text"] {
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .section-card {
+    break-inside: auto;
+  }
 }
