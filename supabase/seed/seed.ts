@@ -5,7 +5,8 @@
  * context + the report editor. Run with `npm run seed` after migrations.
  */
 import { config } from "dotenv";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type WebSocketLikeConstructor } from "@supabase/supabase-js";
+import ws from "ws";
 import type { Database } from "../../types/database";
 
 config({ path: ".env.local" });
@@ -19,6 +20,7 @@ if (!url || !serviceKey) {
 
 const supabase = createClient<Database>(url, serviceKey, {
   auth: { autoRefreshToken: false, persistSession: false },
+  realtime: { transport: ws as unknown as WebSocketLikeConstructor },
 });
 
 async function main() {

@@ -1,5 +1,6 @@
 import "server-only";
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { createClient as createSupabaseClient, type WebSocketLikeConstructor } from "@supabase/supabase-js";
+import ws from "ws";
 import type { Database } from "@/types/database";
 
 /**
@@ -11,6 +12,13 @@ export function createServiceClient() {
   return createSupabaseClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } },
+    {
+      auth: { autoRefreshToken: false, persistSession: false },
+      // Node's nodejs runtime (Vercel functions included) has no global
+      // WebSocket until Node 22 — supabase-js constructs a realtime client
+      // eagerly regardless of whether realtime is used, so this is required
+      // to avoid a crash on every request under Node 20/21.
+      realtime: { transport: ws as unknown as WebSocketLikeConstructor },
+    },
   );
 }

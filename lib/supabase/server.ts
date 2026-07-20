@@ -1,5 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
+import type { WebSocketLikeConstructor } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
+import ws from "ws";
 import type { Database } from "@/types/database";
 
 /** Auth-aware server client — respects RLS as the signed-in admin user. */
@@ -10,6 +12,11 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      // Node's nodejs runtime (Vercel functions included) has no global
+      // WebSocket until Node 22 — supabase-js constructs a realtime client
+      // eagerly regardless of whether realtime is used, so this is required
+      // to avoid a crash on every request under Node 20/21.
+      realtime: { transport: ws as unknown as WebSocketLikeConstructor },
       cookies: {
         getAll() {
           return cookieStore.getAll();
