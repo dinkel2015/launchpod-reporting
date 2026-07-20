@@ -37,7 +37,8 @@ export async function updateSession(request: NextRequest) {
 
   const isAdminRoute =
     request.nextUrl.pathname.startsWith("/admin") &&
-    request.nextUrl.pathname !== "/admin/login";
+    request.nextUrl.pathname !== "/admin/login" &&
+    !request.nextUrl.pathname.startsWith("/admin/auth/");
 
   if (isAdminRoute && !user) {
     const loginUrl = new URL("/admin/login", request.url);

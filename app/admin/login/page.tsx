@@ -3,9 +3,9 @@ import { LoginForm } from "./login-form";
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string }>;
+  searchParams: Promise<{ next?: string; error?: string }>;
 }) {
-  const { next } = await searchParams;
+  const { next, error } = await searchParams;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -14,7 +14,7 @@ export default async function LoginPage({
           <div className="text-lg font-extrabold tracking-tight text-brand-pink">LaunchPod Media</div>
           <p className="mt-1 text-sm text-[#6b7580]">Admin sign in</p>
         </div>
-        <LoginForm next={next ?? "/admin"} />
+        <LoginForm next={next ?? "/admin"} error={error} />
       </div>
     </div>
   );

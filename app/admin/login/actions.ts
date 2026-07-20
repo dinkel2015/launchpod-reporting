@@ -18,6 +18,25 @@ export async function signIn(_prevState: { error: string | null }, formData: For
   redirect(next);
 }
 
+export async function signInWithGoogle(formData: FormData) {
+  const next = String(formData.get("next") ?? "/admin");
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${appUrl}/admin/auth/callback?next=${encodeURIComponent(next)}`,
+    },
+  });
+
+  if (error || !data.url) {
+    redirect(`/admin/login?error=${encodeURIComponent("Google sign-in failed. Please try again.")}`);
+  }
+
+  redirect(data.url);
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
