@@ -710,8 +710,9 @@ async function main() {
   if (recError) throw recError;
   console.log(`  inserted ${recommendations.length} recommendations`);
 
+  const appUrl = (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000").replace(/\/+$/, "");
   console.log("\nDone.");
-  console.log(`Client private report link: ${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/r/${client.private_access_token}`);
+  console.log(`Client private report link: ${appUrl}/r/${client.private_access_token}`);
 }
 
 main().catch((err) => {

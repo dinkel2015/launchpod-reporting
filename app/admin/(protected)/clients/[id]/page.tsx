@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getAppUrl } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,8 +25,7 @@ export default async function ClientDetailPage({
     .eq("client_id", id)
     .order("reporting_period_start", { ascending: false });
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-  const privateLink = `${appUrl}/r/${client.private_access_token}`;
+  const privateLink = `${getAppUrl()}/r/${client.private_access_token}`;
   const updateClient = updateClientRecord.bind(null, id);
 
   return (
